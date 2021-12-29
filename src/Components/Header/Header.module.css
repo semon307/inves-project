@@ -1,0 +1,19 @@
+.header {
+    background-color: rgb(64, 188, 199);
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.forNav {
+    /*border: 1px solid black;*/
+    /*width: 300px;*/
+    display: flex;
+    justify-content: space-around;
+    /*background-color: white;*/
+    margin-right: 20px;
+    font-weight: 700;
+    font-size: 18.54px;
+    color: #fff;
+}

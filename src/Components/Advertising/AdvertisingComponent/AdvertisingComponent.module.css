@@ -1,0 +1,27 @@
+.container{
+    width: 100%;
+    height: 180px;
+    margin-top: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+h4{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    width: 79%;
+    position: relative;
+
+}
+h4::before{
+    content: "";
+    background: #4e93e6;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}

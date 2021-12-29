@@ -1,0 +1,57 @@
+.divTable {
+    display: table;
+    width: auto;
+    height: 200px;
+    border-spacing: 5px; /* cellspacing:poor IE support for  this */
+    min-height: 20vh;
+    background-color: #FEFEFF;
+    border-radius: 8px;
+}
+.divTableRow {
+    display: flex;
+    width: auto;
+    clear: both;
+    height: 50px;
+    align-items: center;
+}
+.divTableCol {
+    float: left; /* fix for  buggy browsers */
+    display: table-column;
+    width: 200px;
+    background-color: rgba(204, 204, 204, 0.39);
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.divTableBlock {
+    display: flex;
+    justify-content: center;
+}
+
+.divHeaderBlock {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.divSearchBlock {
+    display: flex;
+    margin: 50px;
+}
+
+.divSelectBlock {
+    margin: 10px 0;
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    justify-content: space-between;
+}
+.tableWrapper {
+    background-color: #FEFEFF;
+}

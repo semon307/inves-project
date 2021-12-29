@@ -1,0 +1,9 @@
+.button {
+    width: 50px;
+}
+.deleteButton {
+    background-color: red;
+}
+.deleteButton:hover {
+    background-color: #f35f42;
+}

@@ -1,0 +1,29 @@
+.input, .errorInput, .className {
+    border-radius: 10px;
+    background: #ffffff !important;
+    outline: none;
+    height: 24px;
+    width: 120px;
+    color: black;
+    font-size: 13px;
+    font-family: -apple-system;
+    margin: 2px;
+
+}
+
+.input:focus {
+    outline: none;
+    color: #000000;
+    border: 1px solid rgb(64, 188, 199)
+}
+
+.input {
+    border: 1px solid #cccccc;
+}
+.errorInput {
+    border: 1px solid #fa0202;
+}
+
+.error {
+    color: red;
+}

@@ -1,0 +1,32 @@
+.default, .red, .className, .disabled {
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: 0.2s;
+    margin: 2px;
+    height: 28px;
+    text-align: center;
+}
+.default {
+    background: rgb(64, 188, 199);
+    /*box-shadow: 0 -3px rgb(53,167,110) inset;*/
+}
+.default:hover { background: rgb(70, 203, 215); }
+.default:active {
+    background: rgb(64, 188, 199);
+    box-shadow: 0 3px rgb(70, 203, 215) inset;
+}
+
+.red {
+    background: rgb(243, 7, 42);
+    box-shadow: 0 -3px rgb(232,0,33) inset;
+}
+.red:hover { background: rgb(236, 97, 118); }
+.red:active {
+    background: rgb(236, 97, 118);
+    box-shadow: 0 3px rgb(236, 97, 118) inset;
+}
+.disabled {
+    pointer-events: none;
+}
