@@ -17,3 +17,8 @@
     font-size: 18.54px;
     color: #fff;
 }
+@media screen and (max-width: 1073px){
+    .header{
+        width: 110%;
+    }
+}

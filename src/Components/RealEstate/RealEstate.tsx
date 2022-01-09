@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../BLL/Store";
-import Input from "../../Common/Input/Input";
 import {compoundInterest} from "../../Functions/Functions";
 import {TimeStateType} from "../../BLL/TimeReducer";
 import Button from "../../Common/Button/Button";
@@ -12,14 +11,15 @@ import {
     setPriceChangeLastYears
 } from "../../BLL/RealEstateReducer";
 import {Switcher} from "../../Common/Switcher/Switcher";
-import {getChart, getFinanceData} from "../../DAL/FinanceAPI";
 import {Time} from "../Time/Time";
-
+import {SubRealEstateComponent} from "./SubRealEstateComponent/SubRealEstateComponent";
+import s from "./../../Common/Styles/CommonStyles.module.css"
 type RealEstatePropsType = {
     isSeperate: boolean
 }
 export const RealEstate = ({isSeperate}: RealEstatePropsType) => {
     const [isShown, setIsShown] = useState(false)
+    const [showResult, setShowResult] = useState(false)
     const setIsShownEstateCallback = useCallback(() => {
         setIsShown(!isShown)
     }, [isShown])
@@ -34,32 +34,27 @@ export const RealEstate = ({isSeperate}: RealEstatePropsType) => {
     }
 
     const onClickHandler = () => {
+        setShowResult(true)
+    }
+    useEffect(() => {
         let futureCash = compoundInterest(+realEstateState.currentPrice, +realEstateState.priceChangeLastYears, 1, +time.years)
         dispatch(setFuturePrice(Math.round(futureCash).toString()))
-    }
-useEffect(()=> {
-    onClickHandler()
-},[realEstateState.currentPrice, realEstateState.priceChangeLastYears, time.years])
+    }, [realEstateState.currentPrice, realEstateState.priceChangeLastYears, time.years])
     return (
-        <div>
+        <>
             {isSeperate
                 ? <><Time/>
                     <>
-                        <div>
-                            <span>Current price of your real estate, USD:</span>
-                            <Input onChangeText={onChangeTitleCurrentPrice} value={realEstateState.currentPrice}/>
-                        </div>
-                        <div>
-                            <span>How many percent did the price for your real estate changed during last years</span>
-                            <Input onChangeText={onChangeTitlePriceChange} value={realEstateState.priceChangeLastYears}/>
-                        </div>
-
-                        <div>
+                        <SubRealEstateComponent onChangeTitleCurrentPrice={onChangeTitleCurrentPrice}
+                                                onChangeTitlePriceChange={onChangeTitlePriceChange}
+                                                currentPrice={realEstateState.currentPrice}
+                                                priceChangeLastYears={realEstateState.priceChangeLastYears}/>
+                        <div className={s.buttonDiv}>
                             <Button onClick={onClickHandler}>Calculate!</Button>
                         </div>
-                        <div>
-                            {realEstateState.futurePrice ?
-                                <span>In {time.years} your real estate will cost {realEstateState.futurePrice} USD</span> : null}
+                        <div className={s.result}>
+                            {showResult &&
+                                <span>In {time.years} your real estate will cost {realEstateState.futurePrice} USD</span>}
                         </div>
                     </>
                 </>
@@ -68,17 +63,13 @@ useEffect(()=> {
                     {isShown
                         ?
                         <>
-                            <div>
-                                <span>Current price of your real estate, USD:</span>
-                                <Input onChangeText={onChangeTitleCurrentPrice} value={realEstateState.currentPrice}/>
-                            </div>
-                            <div>
-                                <span>How many percent did the price for your real estate changed during last years</span>
-                                <Input onChangeText={onChangeTitlePriceChange} value={realEstateState.priceChangeLastYears}/>
-                            </div>
+                            <SubRealEstateComponent onChangeTitleCurrentPrice={onChangeTitleCurrentPrice}
+                                                    onChangeTitlePriceChange={onChangeTitlePriceChange}
+                                                    currentPrice={realEstateState.currentPrice}
+                                                    priceChangeLastYears={realEstateState.priceChangeLastYears}/>
                         </>
                         : null}</>}
 
-        </div>
+        </>
     )
 }

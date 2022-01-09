@@ -1,0 +1,47 @@
+
+.divTableRow {
+    display: flex;
+    width: 100%;
+    clear: both;
+    height: 50px;
+    align-items: center;
+    padding: 30px;
+
+}
+.divTableCol {
+    float: left;
+    display: table-column;
+    width: 100%;
+    min-height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+    padding: 10px;
+}
+.mainDivComponent {
+    height: 50%;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    font-family: 'Josefin Sans', 'sans-serif';
+    font-weight: 300;
+    font-size: 18.54px;
+    color: black;
+}
+.result {
+    font-weight: 600;
+    text-align: center;
+    padding: 10px;
+}
+.buttonDiv{
+    padding: 20px;
+}
+@media screen and (max-width: 1073px) {
+    .mainDivComponent{
+        width: 100%;
+    }
+}

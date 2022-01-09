@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import s from "./Cash.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../BLL/Store";
 import {
@@ -9,19 +8,20 @@ import {
     setNumberOfInterestAccrualPeriods,
     setprincipalInvestment
 } from "../../BLL/CashReducer";
-import Input from "../../Common/Input/Input";
 import {Time} from "../Time/Time";
 import {compoundInterest} from "../../Functions/Functions";
 import {TimeStateType} from "../../BLL/TimeReducer";
 import Button from "../../Common/Button/Button";
 import {Switcher} from "../../Common/Switcher/Switcher";
-
+import {SubcashComponent} from "./SubCashComponent/SubcashComponent";
+import s from './../../Common/Styles/CommonStyles.module.css'
 type CashPropsType = {
     isSeperate: boolean
 }
 
 export const Cash = ({isSeperate}: CashPropsType) => {
     const [isShown, setIsShown] = useState(false)
+    const [showResult, setShowResult] = useState(false)
     const setIsShownCallback = () => {
         setIsShown(!isShown)
     }
@@ -38,66 +38,50 @@ export const Cash = ({isSeperate}: CashPropsType) => {
         dispatch(setNumberOfInterestAccrualPeriods(value))
     }
     useEffect(() => {
-        onClickHandler()
+        onFuturePriceChange()
     }, [cashState.principalInvestment, cashState.interestRate, cashState.numberOfInterestAccrualPeriods, time.years])
-    const onClickHandler = () => {
+    const onFuturePriceChange = () => {
         let futureCash = compoundInterest(+cashState.principalInvestment, +cashState.interestRate, +cashState.numberOfInterestAccrualPeriods, +time.years)
         const newFutureCash = Math.round(futureCash)
         dispatch(setAmount(newFutureCash.toString()))
     }
+    const onClickHandler = () => {
+        setShowResult(true)
+    }
     return (
-        <div>
+        <>
             {isSeperate
                 ? <><Time/>
                     <>
-                        <div>
-                            <span>Your current cash deposit, USD:</span>
-                            <Input onChangeText={onChangeTitlePrincipalInvestment}
-                                   value={cashState.principalInvestment}/>
-                        </div>
-                        <div>
-                            <span>Interest Rate</span>
-                            <Input onChangeText={onChangeTitleInterestRate} value={cashState.interestRate}/>
-                        </div>
-                        <div>
-                            <span>How many times per year do you get interest payments?</span>
-                            <Input onChangeText={onChangeTitleNumberOfInterestAccrualPeriods}
-                                   value={cashState.numberOfInterestAccrualPeriods}/>
-                        </div>
-                        <div>
+                        <SubcashComponent onChangeTitlePrincipalInvestment={onChangeTitlePrincipalInvestment}
+                                          principalInvestment={cashState.principalInvestment}
+                                          onChangeTitleInterestRate={onChangeTitleInterestRate}
+                                          interestRate={cashState.interestRate}
+                                          onChangeTitleNumberOfInterestAccrualPeriods={onChangeTitleNumberOfInterestAccrualPeriods}
+                                          numberOfInterestAccrualPeriods={cashState.numberOfInterestAccrualPeriods}/>
+                        <div className={s.buttonDiv}>
                             <Button onClick={onClickHandler}>Calculate!</Button>
                         </div>
-                        <div>
-                            {cashState.amount ?
-                                <span>In {time.years} years your current cash deposit will become {cashState.amount} USD</span> : null}
+                        <div className={s.result}>
+                            {showResult &&
+                                <span>In {time.years} years your current cash deposit will become {cashState.amount} USD</span>}
                         </div>
                     </>
                 </>
-                : <><Switcher callBack={setIsShownCallback} checked={isShown} title={"Do you have any cash deposits?"}/>
+                : <>
+                    <Switcher callBack={setIsShownCallback} checked={isShown} title={"Do you have any cash deposits?"}/>
                     {isShown ?
                         <>
-                            <div>
-                                <span>Your current cash deposit, USD:</span>
-                                <Input onChangeText={onChangeTitlePrincipalInvestment}
-                                       value={cashState.principalInvestment}/>
-                            </div>
-                            <div>
-                                <span>Interest Rate</span>
-                                <Input onChangeText={onChangeTitleInterestRate} value={cashState.interestRate}/>
-                            </div>
-                            <div>
-                                <span>How many times per year do you get interest payments?</span>
-                                <Input onChangeText={onChangeTitleNumberOfInterestAccrualPeriods}
-                                       value={cashState.numberOfInterestAccrualPeriods}/>
-                            </div>
-                            {/*<div>*/}
-                            {/*    {cashState.amount ?*/}
-                            {/*        <span>In {time.years} years your current cash deposit will become {cashState.amount} USD</span> : null}*/}
-                            {/*</div>*/}
+                            <SubcashComponent onChangeTitlePrincipalInvestment={onChangeTitlePrincipalInvestment}
+                                              principalInvestment={cashState.principalInvestment}
+                                              onChangeTitleInterestRate={onChangeTitleInterestRate}
+                                              interestRate={cashState.interestRate}
+                                              onChangeTitleNumberOfInterestAccrualPeriods={onChangeTitleNumberOfInterestAccrualPeriods}
+                                              numberOfInterestAccrualPeriods={cashState.numberOfInterestAccrualPeriods}/>
                         </>
                         : null}</>
             }
 
-        </div>
+        </>
     )
 }

@@ -9,7 +9,6 @@ export const Header = () => {
          <HeaderButton title={"Cash"} route={PATH.CASH}/>
          <HeaderButton title={"Real estate"} route={PATH.REALESTATE}/>
          <HeaderButton title={"Loan"} route={PATH.LOAN}/>
-         <HeaderButton title={"Salary"} route={PATH.SALARY}/>
          <HeaderButton title={"Stocks"} route={PATH.STOCKS}/>
          <HeaderButton title={"Salary"} route={PATH.SALARY}/>
             </div>

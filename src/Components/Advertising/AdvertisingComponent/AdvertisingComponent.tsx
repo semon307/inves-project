@@ -28,12 +28,6 @@ export const AdvertisingComponent = ({title, units}: AdvertisingComponentPropsTy
         <div className={s.container}>
             <h4 className={s.text}>{title}</h4>
             {unitsForRender}
-            {/*<AdvertisingUnit*/}
-            {/*imgSrc={wise}*/}
-            {/*rate={"5/5"}*/}
-            {/*buttonLink={'https://wise.com/invite/i/semenk14'}*/}
-            {/*/>*/}
-            {/*<AdvertisingUnit imgSrc={paysend} rate={"4/5"} buttonLink={"https://paysend.com/referral/5b58c5"}/>*/}
         </div>
     )
 }

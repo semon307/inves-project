@@ -1,0 +1,13 @@
+.preface{
+    line-height: 200%;
+    font-family: 'Josefin Sans', 'sans-serif';
+    font-weight: 300;
+    font-size: 18.54px;
+    color: black;
+}
+p {
+    margin-top: 0.5em;
+    margin-bottom: 1em; /* Отступ снизу */
+    text-indent: 1.5em; /* Отступ первой строки */
+    text-align: justify; /* Выравнивание по ширине */
+}

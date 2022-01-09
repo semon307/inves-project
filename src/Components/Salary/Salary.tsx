@@ -8,12 +8,22 @@ import Input from "../../Common/Input/Input";
 import Button from "../../Common/Button/Button";
 import {Time} from "../Time/Time";
 import {Switcher} from "../../Common/Switcher/Switcher";
-import {SalaryStateType, setAmount, setPercentGrowth, setYearlyIncome} from "../../BLL/SalaryReducer";
+import s from './../../Common/Styles/CommonStyles.module.css'
+import {
+    SalaryStateType,
+    setAmount,
+    setPercentForCash, setPercentForCredit, setPercentForShares,
+    setPercentGrowth,
+    setYearlyIncome
+} from "../../BLL/SalaryReducer";
+import {SubSalaryComponent} from "./SubSalaryComponent/SubSalaryComponent";
+
 type SalaryPropsType = {
     isSeperate: boolean
 }
 export const Salary = ({isSeperate}: SalaryPropsType) => {
     const [isShown, setIsShown] = useState(false)
+    const [showResult, setShowResult] = useState(false)
     const setIsShownCallback = () => {
         setIsShown(!isShown)
     }
@@ -26,54 +36,64 @@ export const Salary = ({isSeperate}: SalaryPropsType) => {
     const onChangeTitlePercentGrowth = (value: string) => {
         dispatch(setPercentGrowth(value))
     }
+    const onChangeTitlePercentCash = (value: string) => {
+        dispatch(setPercentForCash(value))
+    }
+    const onChangeTitlePercentCredit = (value: string) => {
+        dispatch(setPercentForCredit(value))
+    }
+    const onChangeTitlePercentShares = (value: string) => {
+        dispatch(setPercentForShares(value))
+    }
 
 
     const onClickHandler = () => {
         let futureSalary = compoundInterest(+salaryState.yearlyIncome, +salaryState.percentGrowth, 1, +time.years)
         const newFutureSalary = Math.round(futureSalary)
         dispatch(setAmount(newFutureSalary.toString()))
+        setShowResult(true)
     }
     return (
-        <div>
+        <>
             {isSeperate
                 ? <><Time/>
                     <>
-                        <div>
-                            <span>Your current yearly salary income, USD:</span>
-                            <Input onChangeText={onChangeTitleCurrentSalary} value={salaryState.yearlyIncome}/>
+                        <SubSalaryComponent onChangeTitleCurrentSalary={onChangeTitleCurrentSalary}
+                                            onChangeTitlePercentGrowth={onChangeTitlePercentGrowth}
+                                            onChangeTitlePercentCash={onChangeTitlePercentCash}
+                                            onChangeTitlePercentCredit={onChangeTitlePercentCredit}
+                                            onChangeTitlePercentShares={onChangeTitlePercentShares}
+                                            yearlyIncome={salaryState.yearlyIncome}
+                                            percentGrowth={salaryState.percentGrowth}
+                                            percentForCash={salaryState.percentForCash}
+                                            percentForCredit={salaryState.percentForCredit}
+                                            percentForShares={salaryState.percentForShares}/>
+                        <div className={s.buttonDiv}>
+                            <Button onClick={onClickHandler}> Calculate!</Button>
                         </div>
-                        <div>
-                            <span>Percentage growth (last year): </span>
-                            <Input onChangeText={onChangeTitlePercentGrowth} value={salaryState.percentGrowth}/>
-                        </div>
-                        <div>
-                            <Button onClick={onClickHandler}>Calculate!</Button>
-                        </div>
-                        <div>
-                            {salaryState.amount ?
-                                <span>In {time.years} years your current cash deposit will become {salaryState.amount} USD</span> : null}
+                        <div className={s.result}>
+                            {showResult ?
+                                <span>In {time.years} years your salary income will be {salaryState.amount} USD</span> : null}
                         </div>
                     </>
                 </>
                 : <><Switcher callBack={setIsShownCallback} checked={isShown} title={"Do you have salary income?"}/>
                     {isShown ?
                         <>
-                            <div>
-                                <span>Your current yearly salary income, USD:</span>
-                                <Input onChangeText={onChangeTitleCurrentSalary} value={salaryState.yearlyIncome}/>
-                            </div>
-                            <div>
-                                <span>Percentage growth (last year): </span>
-                                <Input onChangeText={onChangeTitlePercentGrowth} value={salaryState.percentGrowth}/>
-                            </div>
-                            <div>
-                                {salaryState.amount ?
-                                    <span>In {time.years} years your current cash deposit will become {salaryState.amount} USD</span> : null}
-                            </div>
+                            <SubSalaryComponent onChangeTitleCurrentSalary={onChangeTitleCurrentSalary}
+                                                onChangeTitlePercentGrowth={onChangeTitlePercentGrowth}
+                                                onChangeTitlePercentCash={onChangeTitlePercentCash}
+                                                onChangeTitlePercentCredit={onChangeTitlePercentCredit}
+                                                onChangeTitlePercentShares={onChangeTitlePercentShares}
+                                                yearlyIncome={salaryState.yearlyIncome}
+                                                percentGrowth={salaryState.percentGrowth}
+                                                percentForCash={salaryState.percentForCash}
+                                                percentForCredit={salaryState.percentForCredit}
+                                                percentForShares={salaryState.percentForShares}/>
                         </>
                         : null}</>
             }
 
-        </div>
+        </>
     )
 }

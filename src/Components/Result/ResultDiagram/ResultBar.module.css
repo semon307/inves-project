@@ -1,0 +1,13 @@
+.mainChart{
+}
+.chart{
+    width: 600px;
+    height: 400px;
+
+}
+@media screen and (max-width: 1073px){
+    .chart{
+        width: 100%;
+        height: 30vh;
+    }
+}

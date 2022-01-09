@@ -6,8 +6,11 @@ import {SharesStateType, SharesType} from "../../../BLL/SharesReducer";
 import {
     compileDataColor,
     compileDataNull, dataFromState,
-    predictFuture
+    predictFuture, salaryToShares
 } from "../../../Functions/Functions";
+import s from "./Chart.module.css"
+import {SalaryStateType} from "../../../BLL/SalaryReducer";
+import {TimeStateType} from "../../../BLL/TimeReducer";
 
 
 export const LineChart = () => {
@@ -25,6 +28,7 @@ export const LineChart = () => {
             return `${date.getDay() + 1}.${date.getMonth() + 1}.${date.getFullYear()}`
         })
     const futureTimeStamps = predictFuture(timeStamps)
+        .filter((el, i) => i % 3 === 0)
         .map(el => {
             let date = new Date(el * 1000);
             return `${date.getDay() + 1}.${date.getMonth() + 1}.${date.getFullYear()}`
@@ -37,11 +41,16 @@ export const LineChart = () => {
         ...dataWithNull,
         [timeStampsForRender[timeStampsForRender.length - 1], 'Today', data[data.length - 1], null],
         ...dataWithColor]
+
+
+
+
     return (
-        <div>
+        <div className={s.mainChart}>
             <Chart
-                width={'600px'}
-                height={'400px'}
+                // width={'600px'}
+                // height={'400px'}
+                className={s.chart}
                 chartType="LineChart"
                 loader={<div>Loading Chart</div>}
                 data={dataWihtNullAndColor}

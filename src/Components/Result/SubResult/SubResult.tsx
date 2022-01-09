@@ -9,9 +9,9 @@ type SubResultPropsType = {
 export const SubResult = ({title, currentPrice, futurePrice}: SubResultPropsType) => {
     return (
         <div className={s.divTableRow}>
-            <div className={s.divTableCol}>{title}</div>
-            <div className={s.divTableCol}>{currentPrice}</div>
-            <div className={s.divTableCol}>{futurePrice}</div>
+            <div className={s.divTableCol1}>{title}</div>
+            <div className={s.divTableCol1}>{currentPrice}</div>
+            <div className={s.divTableCol1}>{futurePrice}</div>
         </div>
     )
 }

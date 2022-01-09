@@ -14,7 +14,7 @@ export const Switcher: React.FC<SwitcherPropsType> = ({callBack, title, checked}
             <div>{title}</div>
             <div>
                 <input id={id} type={"checkbox"} onChange={callBack} checked={checked} className={s.iosToggle}/>
-                <label htmlFor={id} className={s.checkboxLabel} data-off="off" data-on="on"></label>
+                <label htmlFor={id} className={s.checkboxLabel}></label>
             </div>
         </div>
     )

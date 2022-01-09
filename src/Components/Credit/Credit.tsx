@@ -1,12 +1,13 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../BLL/Store";
-import Input from "../../Common/Input/Input";
 import Button from "../../Common/Button/Button";
 import {CreditStateType, setCreditPayBack, setPercent, setSum, setYears} from "../../BLL/CreditReducer";
 import {creditPayment} from "../../Functions/Functions";
 import {Switcher} from "../../Common/Switcher/Switcher";
 import {Time} from "../Time/Time";
+import {SubCreditComponent} from "./SubCreditComponent/SubCreditComponent";
+import s from "./../../Common/Styles/CommonStyles.module.css"
 
 type CreditPropsType = {
     isSeperate: boolean
@@ -14,6 +15,7 @@ type CreditPropsType = {
 
 export const Credit = React.memo(({isSeperate}: CreditPropsType) => {
     const [isShown, setIsShown] = useState(false)
+    const [showResult, setShowResult] = useState(false)
     const setIsShownCreditCallback = useCallback(() => {
         setIsShown(!isShown)
     }, [isShown])
@@ -31,39 +33,33 @@ export const Credit = React.memo(({isSeperate}: CreditPropsType) => {
     }
 
     useEffect(() => {
-        onClickHandler()
+        onFuturePriceChange()
     }, [creditState.percent, creditState.years, creditState.sum])
 
-    const onClickHandler = () => {
+    const onFuturePriceChange = () => {
         let percent = +creditState.percent / (100 * +creditState.percent);
         let months = +creditState.years * 12
         let creditPaidBack = creditPayment(+creditState.sum, percent, months) * months
         dispatch(setCreditPayBack(Math.round(creditPaidBack).toString()))
     }
+    const onClickHandler = () => {
+        setShowResult(true)
+    }
     return (
-        <div>
+        <>
             {isSeperate
                 ? <><Time/>
                     <>
-                        <div>
-                            <span>Loan time, years:</span>
-                            <Input onChangeText={onChangeTitleYears} value={years}/>
-                        </div>
-                        <div>
-                            <span>Loan amount</span>
-                            <Input onChangeText={onChangeTitleCreditSum} value={creditState.sum}/>
-                        </div>
-                        <div>
-                            <span>%, (per year)</span>
-                            <Input onChangeText={onChangeTitlePercent} value={creditState.percent}/>
-                        </div>
-
-                        <div>
+                        <SubCreditComponent onChangeTitleYears={onChangeTitleYears}
+                                            onChangeTitleCreditSum={onChangeTitleCreditSum}
+                                            onChangeTitlePercent={onChangeTitlePercent} years={years}
+                                            sum={creditState.sum} percent={creditState.percent}/>
+                        <div className={s.buttonDiv}>
                             <Button onClick={onClickHandler}>Calculate!</Button>
                         </div>
-                        <div>
-                            {creditState.creditPayBack ?
-                                <span>In {creditState.years} years you have to pay {creditState.creditPayBack} USD</span> : null}
+                        <div className={s.result}>
+                            {showResult &&
+                                <span>In {creditState.years} years you have to pay {creditState.creditPayBack} USD</span>}
                         </div>
                     </>
                 </>
@@ -71,22 +67,13 @@ export const Credit = React.memo(({isSeperate}: CreditPropsType) => {
 
                     {isShown ?
                         <>
-                            <div>
-                                <span>Loan time, years:</span>
-                                <Input onChangeText={onChangeTitleYears} value={years}/>
-                                {/*<input onChange={e => {onChangeTitleYears(e.currentTarget.value)}} value={years}/>*/}
-                            </div>
-                            <div>
-                                <span>Loan amount</span>
-                                <Input onChangeText={onChangeTitleCreditSum} value={creditState.sum}/>
-                            </div>
-                            <div>
-                                <span>%, (per year)</span>
-                                <Input onChangeText={onChangeTitlePercent} value={creditState.percent}/>
-                            </div>
+                            <SubCreditComponent onChangeTitleYears={onChangeTitleYears}
+                                                onChangeTitleCreditSum={onChangeTitleCreditSum}
+                                                onChangeTitlePercent={onChangeTitlePercent} years={years}
+                                                sum={creditState.sum} percent={creditState.percent}/>
                         </>
                         : null}</>}
 
-        </div>
+        </>
     )
 })

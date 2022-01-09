@@ -21,9 +21,10 @@ type ActionsType = ReturnType<typeof updateShare>
     | ReturnType<typeof updateAmount>
     | ReturnType<typeof setCurrentPrice>
     | ReturnType<typeof setPricesBefore>
+    | ReturnType<typeof deleteLastAddedShare>
 
 const initialState = loadState() ? loadState().shares : [
-    {id: v1(), ticker: "", amount: "", buyPrice: "", currentPrice: "", pricesBefore: []},
+    {id: v1(), ticker: "", amount: "1", buyPrice: "0.1", currentPrice: "", pricesBefore: []},
 ]
 export const SharesReducer = (state: SharesStateType = initialState, action: ActionsType) => {
     switch (action.type) {
@@ -32,7 +33,7 @@ export const SharesReducer = (state: SharesStateType = initialState, action: Act
         //     share = {...share, ...action.payload}
         //     return [...state, share];
         case "shares/ADD-SHARE":
-            return [...state, {id: v1(), ticker: "", amount: "", buyPrice: "", currentPrice: ""}];
+            return [...state, {id: v1(), ticker: "", amount: "", buyPrice: "", currentPrice: "", pricesBefore: []}];
         case "shares/DELETE-SHARE":
             return state.filter( i => i.id !== action.id);
         case "shares/UPDATE-TICKER": {
@@ -65,6 +66,11 @@ export const SharesReducer = (state: SharesStateType = initialState, action: Act
             shareForChange.pricesBefore = action.pricesBefore;
             return stateCopy;
         }
+        case "shares/DELETE-LAST-ADDED-SHARE": {
+            let stateCopy: SharesStateType = [...state]
+            stateCopy.pop()
+            return stateCopy
+        }
         default:
             return state;
 
@@ -96,6 +102,7 @@ export const updateBuyPrice = (id: string, buyPrice: string) => {
         buyPrice,
     } as const
 }
+
 export const updateAmount = (id: string, amount: string) => {
     return {
         type: "shares/UPDATE-AMOUNt",
@@ -107,6 +114,11 @@ export const deleteShare = (id: string) => {
     return {
         type: "shares/DELETE-SHARE",
         id,
+    } as const
+}
+export const deleteLastAddedShare = () => {
+    return {
+        type: "shares/DELETE-LAST-ADDED-SHARE",
     } as const
 }
 export const addShare = () => {
@@ -134,9 +146,13 @@ export const getCurrentPriceTC = (id: string, ticker: string, region?: string) =
         getFinanceData(ticker, region)
             .then((res) => {
                 dispatch(setCurrentPrice(id, res.data.price.regularMarketPrice.fmt))
+                dispatch(setAppStatusAC("succeeded"))
                 // console.log(res.data.price.regularMarketPrice.fmt)
             })
-            .finally(()=> dispatch(setAppStatusAC("idle")))
+            .catch(err => {
+                dispatch(setAppStatusAC("failed"))
+            })
+            //.finally(()=> dispatch(setAppStatusAC("idle")))
     }
 }
 export const setPricesBeforeTC = (id: string, ticker: string, range: string) => {

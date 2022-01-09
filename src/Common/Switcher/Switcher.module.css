@@ -29,7 +29,8 @@ h1 {
 }
 
 .iosToggle,.iosToggle:active {
-    position:absolute;
+    /*position:absolute;*/
+    position: fixed;
     top:-5000px;
     height:0;
     width:0;
@@ -60,7 +61,7 @@ h1 {
     content:'';
     display:block;
     position:absolute;
-    z-index:1;
+    z-index:0;
     line-height:34px;
     text-indent:40px;
     height:20px;
