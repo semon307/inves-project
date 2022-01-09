@@ -24,7 +24,7 @@ type ActionsType = ReturnType<typeof updateShare>
     | ReturnType<typeof deleteLastAddedShare>
 
 const initialState = loadState() ? loadState().shares : [
-    {id: v1(), ticker: "", amount: "1", buyPrice: "0.1", currentPrice: "", pricesBefore: []},
+    {id: v1(), ticker: "TEST", amount: "1", buyPrice: "0.1", currentPrice: "0.1", pricesBefore: []},
 ]
 export const SharesReducer = (state: SharesStateType = initialState, action: ActionsType) => {
     switch (action.type) {
