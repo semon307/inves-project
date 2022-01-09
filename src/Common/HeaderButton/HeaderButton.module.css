@@ -33,3 +33,8 @@
 .nav div:hover{
     cursor: pointer;
 }
+@media screen and (max-width: 1073px){
+   .nav{
+       font-size: 12px;
+   }
+}

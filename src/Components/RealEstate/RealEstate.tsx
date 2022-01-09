@@ -44,7 +44,7 @@ export const RealEstate = ({isSeperate}: RealEstatePropsType) => {
         <>
             {isSeperate
                 ? <><Time/>
-                    <>
+                    <div className={s.mainDivComponent}>
                         <SubRealEstateComponent onChangeTitleCurrentPrice={onChangeTitleCurrentPrice}
                                                 onChangeTitlePriceChange={onChangeTitlePriceChange}
                                                 currentPrice={realEstateState.currentPrice}
@@ -56,7 +56,7 @@ export const RealEstate = ({isSeperate}: RealEstatePropsType) => {
                             {showResult &&
                                 <span>In {time.years} your real estate will cost {realEstateState.futurePrice} USD</span>}
                         </div>
-                    </>
+                    </div>
                 </>
                 : <><Switcher callBack={setIsShownEstateCallback} checked={isShown}
                               title={"Do you have any real estate objects?"}/>

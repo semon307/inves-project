@@ -57,7 +57,7 @@ export const Salary = ({isSeperate}: SalaryPropsType) => {
         <>
             {isSeperate
                 ? <><Time/>
-                    <>
+                    <div className={s.mainDivComponent}>
                         <SubSalaryComponent onChangeTitleCurrentSalary={onChangeTitleCurrentSalary}
                                             onChangeTitlePercentGrowth={onChangeTitlePercentGrowth}
                                             onChangeTitlePercentCash={onChangeTitlePercentCash}
@@ -75,7 +75,7 @@ export const Salary = ({isSeperate}: SalaryPropsType) => {
                             {showResult ?
                                 <span>In {time.years} years your salary income will be {salaryState.amount} USD</span> : null}
                         </div>
-                    </>
+                    </div>
                 </>
                 : <><Switcher callBack={setIsShownCallback} checked={isShown} title={"Do you have salary income?"}/>
                     {isShown ?

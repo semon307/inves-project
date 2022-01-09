@@ -49,7 +49,7 @@ export const Credit = React.memo(({isSeperate}: CreditPropsType) => {
         <>
             {isSeperate
                 ? <><Time/>
-                    <>
+                    <div className={s.mainDivComponent}>
                         <SubCreditComponent onChangeTitleYears={onChangeTitleYears}
                                             onChangeTitleCreditSum={onChangeTitleCreditSum}
                                             onChangeTitlePercent={onChangeTitlePercent} years={years}
@@ -61,7 +61,7 @@ export const Credit = React.memo(({isSeperate}: CreditPropsType) => {
                             {showResult &&
                                 <span>In {creditState.years} years you have to pay {creditState.creditPayBack} USD</span>}
                         </div>
-                    </>
+                    </div>
                 </>
                 : <><Switcher callBack={setIsShownCreditCallback} checked={isShown} title={"Do you have any loans?"}/>
 

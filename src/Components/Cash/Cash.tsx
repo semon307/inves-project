@@ -52,7 +52,7 @@ export const Cash = ({isSeperate}: CashPropsType) => {
         <>
             {isSeperate
                 ? <><Time/>
-                    <>
+                    <div className={s.mainDivComponent}>
                         <SubcashComponent onChangeTitlePrincipalInvestment={onChangeTitlePrincipalInvestment}
                                           principalInvestment={cashState.principalInvestment}
                                           onChangeTitleInterestRate={onChangeTitleInterestRate}
@@ -66,7 +66,7 @@ export const Cash = ({isSeperate}: CashPropsType) => {
                             {showResult &&
                                 <span>In {time.years} years your current cash deposit will become {cashState.amount} USD</span>}
                         </div>
-                    </>
+                    </div>
                 </>
                 : <>
                     <Switcher callBack={setIsShownCallback} checked={isShown} title={"Do you have any cash deposits?"}/>
