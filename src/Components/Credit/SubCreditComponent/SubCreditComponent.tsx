@@ -21,7 +21,7 @@ export const SubCreditComponent = ({
     return (
         <>
             <div className={s.divTableRow}>
-                <div className={s.divTableCol}>Credit period, years:</div>
+                <div className={s.divTableCol}>Loan period, years:</div>
                 <div className={s.divTableCol}><Input onChangeText={onChangeTitleYears} value={years}/></div>
             </div>
             <div className={s.divTableRow}>
