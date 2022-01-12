@@ -24,7 +24,7 @@ type ActionsType = ReturnType<typeof updateShare>
     | ReturnType<typeof deleteLastAddedShare>
 
 const initialState = loadState() ? loadState().shares : [
-    {id: v1(), ticker: "TEST", amount: "1", buyPrice: "0.1", currentPrice: "0.1", pricesBefore: []},
+    {id: v1(), ticker: "AAPL", amount: "1", buyPrice: "0.1", currentPrice: "0.1", pricesBefore: []},
 ]
 export const SharesReducer = (state: SharesStateType = initialState, action: ActionsType) => {
     switch (action.type) {
@@ -161,6 +161,7 @@ export const setPricesBeforeTC = (id: string, ticker: string, range: string) => 
         getChart(ticker, range)
             .then(res => {
                 // console.log(res.data.chart.result[0].indicators.quote[0].close)
+                console.log(res.data.chart.result[0].indicators.quote[0].close)
                 dispatch(setPricesBefore(id, res.data.chart.result[0].indicators.quote[0].close))
             })
             .finally(()=> dispatch(setAppStatusAC("idle")))

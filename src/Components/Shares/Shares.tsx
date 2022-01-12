@@ -30,6 +30,7 @@ export const Shares = ({isSeperate}: SharesPropsType) => {
         setIsShown(!isShown)
     }, [isShown])
     const sharesState = useSelector<AppStateType, SharesStateType>((state) => state.shares);
+    const disableDelete = sharesState.length === 1;
     const dispatch = useDispatch();
     const onDeletShare = (id: string) => {
         dispatch(deleteShare(id))
@@ -41,6 +42,7 @@ export const Shares = ({isSeperate}: SharesPropsType) => {
                 currentPrice={share.currentPrice}
                 amount={share.amount}
                 onDeleteShare={onDeletShare}
+                disableDelete={disableDelete}
             />
         )
 

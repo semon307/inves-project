@@ -7,18 +7,19 @@ type ModalType =  {
 	active:boolean | undefined
 	setActive:(active:boolean) => void
 	children:ReactChild | ReactChildren;
+	shouldDelete?: boolean
 }
 
 
 
-export const Modal = React.memo(({active,setActive,children}:ModalType) => {
+export const Modal = React.memo(({active,setActive,children, shouldDelete}:ModalType) => {
 	const dispatch = useDispatch()
 	const modalHandler = (e:MouseEvent) => {
 			e.stopPropagation();
 	}
 	const onClickHandlerSetActive = () => {
 		setActive(false)
-		dispatch(deleteLastAddedShare())
+		shouldDelete && dispatch(deleteLastAddedShare())
 	}
 
 	return(

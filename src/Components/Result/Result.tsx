@@ -55,7 +55,7 @@ export const Result = () => {
         sharesFutureToShow = Math.floor(sharesFutureToShow + salaryInTimeStampsForShares[salaryInTimeStampsForShares.length - 1])
     }
     //
-    const totalCurrent = +principalInvestment + +currentPrice + sharesCurrentPrice - +creditState.creditPayBack
+    const totalCurrent = (+principalInvestment || 0) + (+currentPrice || 0) + (+sharesCurrentPrice || 0) - (+creditState.creditPayBack || 0)
     const totalFuture = cashFutureToShow + +futurePrice + sharesFutureToShow - Number(creditSumToShow)
 
     const currentYear = new Date().getFullYear()

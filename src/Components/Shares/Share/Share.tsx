@@ -13,8 +13,9 @@ type SharePropsType = {
     amount: string
     currentPrice: string
     onDeleteShare: (id: string) => void
+    disableDelete: boolean
 }
-export const Share = ({id, ticker, buyPrice, amount, currentPrice, onDeleteShare}: SharePropsType) => {
+export const Share = ({id, ticker, buyPrice, amount, currentPrice, onDeleteShare, disableDelete}: SharePropsType) => {
     const disabled = useSelector<AppStateType, RequestStatusType>(state => state.app.status) === "loading"
 
     return (
@@ -25,7 +26,7 @@ export const Share = ({id, ticker, buyPrice, amount, currentPrice, onDeleteShare
                 <div className={s.divTableCol}>{amount}</div>
                 <div className={s.divTableCol}>{currentPrice}</div>
                 <div className={s.divTableCol}>
-                    <Button onClick={()=>{onDeleteShare(id)}} className={shareStyles.deleteButton}>Delete</Button>
+                    <Button disabled={disableDelete} onClick={()=>{onDeleteShare(id)}} className={shareStyles.deleteButton}>Delete</Button>
                     <AddShare disable={false} title={"Edit"} shareId={id}/>
                 </div>
             </div>

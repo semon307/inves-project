@@ -18,6 +18,7 @@ import {AppStateType} from "../../../BLL/Store";
 import {Loader} from "../../../Common/Loader/Loader";
 import {realEstateInTimeStampsFutureFunction} from "../../../Functions/Functions";
 import {setTimeStampsTC, TimeStateType} from "../../../BLL/TimeReducer";
+import {v1} from "uuid";
 
 type AddPackPagePropsType = {
 	disable:boolean
@@ -81,8 +82,9 @@ export const AddShare = ({disable, title, shareId}:AddPackPagePropsType) => {
 	const addShareHandler = () => {
 		checkLocalError()
 		!localError
-		&& dispatch(setPricesBefore(id, realEstateInTimeStampsFutureFunction(+buyPrice, +currentPrice, timeState.timeStamps.length)))
+		// && dispatch(setPricesBeforeTC(id, ticker, )))
 		&& setActive(false)
+		//realEstateInTimeStampsFutureFunction(+buyPrice, +currentPrice, timeState.timeStamps.length
 	}
 
 
@@ -90,7 +92,7 @@ export const AddShare = ({disable, title, shareId}:AddPackPagePropsType) => {
 		<>
 			<Button disabled={disable} onClick={onAddShareModule}>{title}</Button>
 
-			<Modal active={active} setActive={setActive}>
+			<Modal active={active} setActive={setActive} shouldDelete={!shareId}>
 
 				<div>
 					{status === "loading" && <Loader/>}

@@ -15,7 +15,7 @@ import {TimeStateType} from "../../../BLL/TimeReducer";
 
 export const LineChart = () => {
     const shareState = useSelector<AppStateType, SharesStateType>(state => state.shares);
-    // const data = share.pricesBefore.filter((el, i) => i % 15 === 0);
+    // const data = shareState[0].pricesBefore.filter((el, i) => i % 3 === 0);
 
     const timeStamps = useSelector<AppStateType, Array<number>>(state => state.time.timeStamps)
         //.filter((el, i) => i % 15 === 0)
