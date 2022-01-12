@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/inves-project/static/css/main.b1d1e015.chunk.css",
-    "main.js": "/inves-project/static/js/main.80c69773.chunk.js",
-    "main.js.map": "/inves-project/static/js/main.80c69773.chunk.js.map",
+    "main.js": "/inves-project/static/js/main.a2f4c8f9.chunk.js",
+    "main.js.map": "/inves-project/static/js/main.a2f4c8f9.chunk.js.map",
     "runtime-main.js": "/inves-project/static/js/runtime-main.13c5cba5.js",
     "runtime-main.js.map": "/inves-project/static/js/runtime-main.13c5cba5.js.map",
     "static/js/2.0773ba9e.chunk.js": "/inves-project/static/js/2.0773ba9e.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.13c5cba5.js",
     "static/js/2.0773ba9e.chunk.js",
     "static/css/main.b1d1e015.chunk.css",
-    "static/js/main.80c69773.chunk.js"
+    "static/js/main.a2f4c8f9.chunk.js"
   ]
 }
