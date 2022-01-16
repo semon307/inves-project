@@ -7,7 +7,7 @@ type SwitcherPropsType = {
     checked: boolean
     title: string
 }
-export const Switcher: React.FC<SwitcherPropsType> = ({callBack, title, checked}) => {
+export const Switcher: React.FC<SwitcherPropsType> = React.memo(({callBack, title, checked}) => {
     const id = v1()
     return (
         <div className={s.main}>
@@ -18,4 +18,4 @@ export const Switcher: React.FC<SwitcherPropsType> = ({callBack, title, checked}
             </div>
         </div>
     )
-}
+})

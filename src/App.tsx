@@ -1,13 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.module.css';
 import {Header} from "./Components/Header/Header";
 import {RoutesBlock} from "./Components/Routes/Routes";
-import {Loader} from "./Common/Loader/Loader";
-import {useSelector} from "react-redux";
-import {AppStateType} from "./BLL/Store";
-import {RequestStatusType} from "./BLL/AppReducer";
 import s from "./App.module.css"
-import {MoneyTransfers} from "./Components/Advertising/MoneyTransfers/MoneyTransfers";
 import {AdvertisingComponent} from "./Components/Advertising/AdvertisingComponent/AdvertisingComponent";
 import wise from './Common/Assets/Images/TransferWise-Title-Image.png'
 import paysend from './Common/Assets/Images/paysend1.jpeg'
@@ -16,7 +11,7 @@ import ibkr from './Common/Assets/Images/ibkr.png'
 
 import {Footer} from "./Components/Footer/Footer";
 
-function App() {
+const App = React.memo(() => {
     return (
         <div>
             <Header/>
@@ -40,6 +35,6 @@ function App() {
 
         </div>
     );
-}
+})
 
 export default App;

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../BLL/Store";
 import {TimeStateType} from "../../BLL/TimeReducer";
@@ -21,7 +21,7 @@ import {SubSalaryComponent} from "./SubSalaryComponent/SubSalaryComponent";
 type SalaryPropsType = {
     isSeperate: boolean
 }
-export const Salary = ({isSeperate}: SalaryPropsType) => {
+export const Salary = React.memo(({isSeperate}: SalaryPropsType) => {
     const [isShown, setIsShown] = useState(false)
     const [showResult, setShowResult] = useState(false)
     const setIsShownCallback = () => {
@@ -30,9 +30,9 @@ export const Salary = ({isSeperate}: SalaryPropsType) => {
     const time = useSelector<AppStateType, TimeStateType>((state) => state.time)
     const salaryState = useSelector<AppStateType, SalaryStateType>((state) => state.salary);
     const dispatch = useDispatch();
-    const onChangeTitleCurrentSalary = (value: string) => {
+    const onChangeTitleCurrentSalary = useCallback((value: string) => {
         dispatch(setYearlyIncome(value))
-    }
+    }, [dispatch])
     const onChangeTitlePercentGrowth = (value: string) => {
         dispatch(setPercentGrowth(value))
     }
@@ -96,4 +96,4 @@ export const Salary = ({isSeperate}: SalaryPropsType) => {
 
         </>
     )
-}
+})

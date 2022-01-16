@@ -22,15 +22,15 @@ export const Credit = React.memo(({isSeperate}: CreditPropsType) => {
     const creditState = useSelector<AppStateType, CreditStateType>((state) => state.credit);
     const years = useSelector<AppStateType, string>(state => state.credit.years)
     const dispatch = useDispatch();
-    const onChangeTitleYears = (value: string) => {
+    const onChangeTitleYears = useCallback((value: string) => {
         dispatch(setYears(value))
-    }
+    }, [dispatch])
     const onChangeTitleCreditSum = useCallback((value: string) => {
         dispatch(setSum(value))
-    }, [])
-    const onChangeTitlePercent = (value: string) => {
+    }, [dispatch])
+    const onChangeTitlePercent = useCallback((value: string) => {
         dispatch(setPercent(value))
-    }
+    }, [dispatch])
 
     useEffect(() => {
         onFuturePriceChange()
@@ -42,9 +42,9 @@ export const Credit = React.memo(({isSeperate}: CreditPropsType) => {
         let creditPaidBack = creditPayment(+creditState.sum, percent, months) * months
         dispatch(setCreditPayBack(Math.round(creditPaidBack).toString()))
     }
-    const onClickHandler = () => {
+    const onClickHandler = useCallback(() => {
         setShowResult(true)
-    }
+    }, [])
     return (
         <>
             {isSeperate

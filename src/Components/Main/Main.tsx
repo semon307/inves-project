@@ -11,7 +11,7 @@ import Button from "../../Common/Button/Button";
 import {Result} from "../Result/Result";
 import s from "./Main.module.css"
 import {Preface} from "../Preface/Preface";
-export const Main = () => {
+export const Main = React.memo(() => {
 
 
     return (
@@ -26,4 +26,4 @@ export const Main = () => {
              <Result/>
         </div>
     )
-}
+})

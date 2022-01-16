@@ -18,7 +18,7 @@ type ResultChartType = {
     realEstateInTimeStampsPast?: Array<number>
     realEstateInTimeStampsFuture?: Array<number>
 }
-export const ResultChart = ({
+export const ResultChart = React.memo(({
                                 salaryInTimeStampsForCash,
                                 salaryInTimeStampsForShares,
                                 cashPastInTimeStamps,
@@ -102,4 +102,4 @@ export const ResultChart = ({
             />
         </div>
     )
-}
+})

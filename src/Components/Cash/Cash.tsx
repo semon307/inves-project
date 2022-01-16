@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../BLL/Store";
 import {
@@ -15,28 +15,29 @@ import Button from "../../Common/Button/Button";
 import {Switcher} from "../../Common/Switcher/Switcher";
 import {SubcashComponent} from "./SubCashComponent/SubcashComponent";
 import s from './../../Common/Styles/CommonStyles.module.css'
+
 type CashPropsType = {
     isSeperate: boolean
 }
 
-export const Cash = ({isSeperate}: CashPropsType) => {
+export const Cash = React.memo(({isSeperate}: CashPropsType) => {
     const [isShown, setIsShown] = useState(false)
     const [showResult, setShowResult] = useState(false)
-    const setIsShownCallback = () => {
+    const setIsShownCallback = useCallback(() => {
         setIsShown(!isShown)
-    }
+    }, [isShown])
     const time = useSelector<AppStateType, TimeStateType>((state) => state.time)
     const cashState = useSelector<AppStateType, CashStateType>((state) => state.cash);
     const dispatch = useDispatch();
-    const onChangeTitlePrincipalInvestment = (value: string) => {
+    const onChangeTitlePrincipalInvestment = useCallback((value: string) => {
         dispatch(setprincipalInvestment(value))
-    }
-    const onChangeTitleInterestRate = (value: string) => {
+    }, [dispatch])
+    const onChangeTitleInterestRate = useCallback((value: string) => {
         dispatch(setInterestRate(value))
-    }
-    const onChangeTitleNumberOfInterestAccrualPeriods = (value: string) => {
+    }, [dispatch])
+    const onChangeTitleNumberOfInterestAccrualPeriods = useCallback((value: string) => {
         dispatch(setNumberOfInterestAccrualPeriods(value))
-    }
+    }, [dispatch])
     useEffect(() => {
         onFuturePriceChange()
     }, [cashState.principalInvestment, cashState.interestRate, cashState.numberOfInterestAccrualPeriods, time.years])
@@ -45,9 +46,9 @@ export const Cash = ({isSeperate}: CashPropsType) => {
         const newFutureCash = Math.round(futureCash)
         dispatch(setAmount(newFutureCash.toString()))
     }
-    const onClickHandler = () => {
+    const onClickHandler = useCallback(() => {
         setShowResult(true)
-    }
+    }, [])
     return (
         <>
             {isSeperate
@@ -64,7 +65,7 @@ export const Cash = ({isSeperate}: CashPropsType) => {
                         </div>
                         <div className={s.result}>
                             {showResult &&
-                                <span>In {time.years} years your current cash deposit will become {cashState.amount} USD</span>}
+                            <span>In {time.years} years your current cash deposit will become {cashState.amount} USD</span>}
                         </div>
                     </div>
                 </>
@@ -84,4 +85,4 @@ export const Cash = ({isSeperate}: CashPropsType) => {
 
         </>
     )
-}
+})

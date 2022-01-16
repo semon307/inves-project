@@ -6,6 +6,7 @@ import {Credit} from "../Credit/Credit";
 import {Shares} from "../Shares/Shares";
 import {Main} from "../Main/Main";
 import {Salary} from "../Salary/Salary";
+import React from "react";
 export const PATH = {
     CASH: '/cash',
     REALESTATE: '/realestate',
@@ -14,7 +15,7 @@ export const PATH = {
     STOCKS: '/stocks',
 }
 
-export const RoutesBlock = () => {
+export const RoutesBlock = React.memo(() => {
     return (
         <div>
             <Routes>
@@ -30,4 +31,4 @@ export const RoutesBlock = () => {
             </Routes>
         </div>
     )
-}
+})

@@ -14,7 +14,7 @@ type AdvertisingComponentPropsType = {
     units: Array<UnitType>
 }
 
-export const AdvertisingComponent = ({title, units}: AdvertisingComponentPropsType) => {
+export const AdvertisingComponent = React.memo(({title, units}: AdvertisingComponentPropsType) => {
     const unitsForRender = units.map(item => {
         return (
             <AdvertisingUnit
@@ -30,4 +30,4 @@ export const AdvertisingComponent = ({title, units}: AdvertisingComponentPropsTy
             {unitsForRender}
         </div>
     )
-}
+})

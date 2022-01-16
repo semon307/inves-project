@@ -7,7 +7,7 @@ type ButtonPropsType = DefaultButtonPropsType & {
     red?: boolean
 }
 
-const Button: React.FC<ButtonPropsType> = (
+const Button: React.FC<ButtonPropsType> = React.memo((
     {
         red, className, disabled,
         ...restProps
@@ -22,6 +22,6 @@ const Button: React.FC<ButtonPropsType> = (
             {...restProps}
         />
     )
-}
+})
 
 export default Button

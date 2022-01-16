@@ -7,7 +7,7 @@ type ResultBarPropsType = {
     totalNow: number
     totalFuture: number
 }
-export const ResultBar = ({currentYear, futureYear, totalNow, totalFuture}: ResultBarPropsType) => {
+export const ResultBar = React.memo(({currentYear, futureYear, totalNow, totalFuture}: ResultBarPropsType) => {
     const data = [
         ["Year", "Estate"],
         [currentYear, totalNow],
@@ -32,4 +32,4 @@ export const ResultBar = ({currentYear, futureYear, totalNow, totalFuture}: Resu
             />
         </div>
     )
-}
+})

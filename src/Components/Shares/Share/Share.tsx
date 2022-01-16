@@ -15,9 +15,7 @@ type SharePropsType = {
     onDeleteShare: (id: string) => void
     disableDelete: boolean
 }
-export const Share = ({id, ticker, buyPrice, amount, currentPrice, onDeleteShare, disableDelete}: SharePropsType) => {
-    const disabled = useSelector<AppStateType, RequestStatusType>(state => state.app.status) === "loading"
-
+export const Share = React.memo(({id, ticker, buyPrice, amount, currentPrice, onDeleteShare, disableDelete}: SharePropsType) => {
     return (
         <div>
             <div className={s.divTableRow}>
@@ -32,4 +30,4 @@ export const Share = ({id, ticker, buyPrice, amount, currentPrice, onDeleteShare
             </div>
         </div>
     )
-}
+})

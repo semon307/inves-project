@@ -2,12 +2,11 @@ import React, {useEffect, useState} from "react";
 import s from './PopUp.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../BLL/Store";
-import {RequestStatusType, setAppErrorAC} from "../../../BLL/AppReducer";
-// import {AppStoreType} from "../../components/store/store";
-// import {isErrorAC} from "../../components/Reducers/AppReducer";
+import {setAppErrorAC} from "../../../BLL/AppReducer";
 
 
-export const PopUp = () => {
+
+export const PopUp = React.memo(() => {
 	const dispatch = useDispatch()
 	const error = useSelector<AppStateType, string | null>(state => state.app.error)
 	const [active, setActive] = useState<boolean>(false)
@@ -35,4 +34,4 @@ export const PopUp = () => {
 			</div>
 		</div>
 	)
-}
+})

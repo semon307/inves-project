@@ -6,7 +6,7 @@ import {faGithub} from '@fortawesome/free-brands-svg-icons'
 import {faFacebook} from '@fortawesome/free-brands-svg-icons'
 import {faTelegram} from "@fortawesome/free-brands-svg-icons";
 
-export const Footer = () => {
+export const Footer = React.memo(() => {
     return (
         <div className={s.footerBlock}>
             <div className={`${s.container} ${s.footerContainer}`}>
@@ -24,4 +24,4 @@ export const Footer = () => {
 
         </div>
     )
-}
+})

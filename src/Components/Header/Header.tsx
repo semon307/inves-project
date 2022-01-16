@@ -7,7 +7,7 @@ import {faGithub} from "@fortawesome/free-brands-svg-icons";
 import {faHome} from "@fortawesome/free-solid-svg-icons";
 import {NavLink} from "react-router-dom";
 
-export const Header = () => {
+export const Header = React.memo(() => {
     return (
         <div className={s.header}>
             <div className={s.icon}><NavLink to={"/"}><FontAwesomeIcon className={s.fontAwesome}
@@ -21,4 +21,4 @@ export const Header = () => {
             </div>
         </div>
     )
-}
+})

@@ -5,7 +5,7 @@ type HeaderButtonPropsType = {
     title: string
     route: string
 }
-export const HeaderButton = ({title, route}: HeaderButtonPropsType) => {
+export const HeaderButton = React.memo(({title, route}: HeaderButtonPropsType) => {
 
     return (
         <div className={s.nav}>
@@ -13,4 +13,4 @@ export const HeaderButton = ({title, route}: HeaderButtonPropsType) => {
             <div className={s.navLink}><NavLink to={route}>{title}</NavLink></div>
         </div>
     )
-}
+})

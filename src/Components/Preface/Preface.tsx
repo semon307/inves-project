@@ -2,7 +2,7 @@ import React from "react";
 import {Time} from "../Time/Time";
 import s from "./Preface.module.css"
 
-export const Preface = () => {
+export const Preface = React.memo(() => {
     return (
         <div>
             <div className={s.preface}>
@@ -33,4 +33,4 @@ export const Preface = () => {
             <Time/>
         </div>
     )
-}
+})

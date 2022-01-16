@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../BLL/Store";
 import {Switcher} from "../../Common/Switcher/Switcher";
@@ -18,7 +18,7 @@ import s from "../Result/Result.module.css";
 type SharesPropsType = {
     isSeperate: boolean
 }
-export const Shares = ({isSeperate}: SharesPropsType) => {
+export const Shares = React.memo(({isSeperate}: SharesPropsType) => {
     const [isShown, setIsShown] = useState(false)
 
     const [isChartShown, setIsChartShown] = useState(false)
@@ -32,10 +32,10 @@ export const Shares = ({isSeperate}: SharesPropsType) => {
     const sharesState = useSelector<AppStateType, SharesStateType>((state) => state.shares);
     const disableDelete = sharesState.length === 1;
     const dispatch = useDispatch();
-    const onDeletShare = (id: string) => {
+    const onDeletShare = useCallback((id: string) => {
         dispatch(deleteShare(id))
-    }
-    const sharesInputsToShow = sharesState.map((share) => {
+    }, [dispatch])
+    const sharesInputsToShow = useMemo(() => sharesState.map((share) => {
         return (
             <Share
                 id={share.id} ticker={share.ticker} buyPrice={share.buyPrice}
@@ -46,7 +46,7 @@ export const Shares = ({isSeperate}: SharesPropsType) => {
             />
         )
 
-    })
+    }), [sharesState])
     return (
         <div className={s.mainDivComponent}>
             {isSeperate
@@ -108,4 +108,4 @@ export const Shares = ({isSeperate}: SharesPropsType) => {
 
         </div>
     )
-}
+})

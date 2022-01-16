@@ -17,7 +17,7 @@ import s from "./../../Common/Styles/CommonStyles.module.css"
 type RealEstatePropsType = {
     isSeperate: boolean
 }
-export const RealEstate = ({isSeperate}: RealEstatePropsType) => {
+export const RealEstate = React.memo(({isSeperate}: RealEstatePropsType) => {
     const [isShown, setIsShown] = useState(false)
     const [showResult, setShowResult] = useState(false)
     const setIsShownEstateCallback = useCallback(() => {
@@ -26,16 +26,16 @@ export const RealEstate = ({isSeperate}: RealEstatePropsType) => {
     const time = useSelector<AppStateType, TimeStateType>((state) => state.time)
     const realEstateState = useSelector<AppStateType, RealEstateStateType>((state) => state.realEstate);
     const dispatch = useDispatch();
-    const onChangeTitleCurrentPrice = (value: string) => {
+    const onChangeTitleCurrentPrice = useCallback((value: string) => {
         dispatch(setCurrentPrice(value))
-    }
-    const onChangeTitlePriceChange = (value: string) => {
+    }, [dispatch])
+    const onChangeTitlePriceChange = useCallback((value: string) => {
         dispatch(setPriceChangeLastYears(value))
-    }
+    }, [dispatch])
 
-    const onClickHandler = () => {
+    const onClickHandler = useCallback(() => {
         setShowResult(true)
-    }
+    }, [dispatch])
     useEffect(() => {
         let futureCash = compoundInterest(+realEstateState.currentPrice, +realEstateState.priceChangeLastYears, 1, +time.years)
         dispatch(setFuturePrice(Math.round(futureCash).toString()))
@@ -72,4 +72,4 @@ export const RealEstate = ({isSeperate}: RealEstatePropsType) => {
 
         </>
     )
-}
+})

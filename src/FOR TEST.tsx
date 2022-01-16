@@ -33,3 +33,25 @@ export const Test = () => {
 }
 
 
+
+// function User() {
+//     const [userName, setUserName] = useState<string>("")
+//     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>)=> setUserName(e.currentTarget.value)
+//     return (
+//         <div>
+//             <p>{userName}</p>
+//             <input
+//                 onChange={onChangeHandler}
+//             />
+//         </div>
+//     )
+// }
+//
+// ReactDOM.render(
+//     <User/>, document.getElementById('root')
+// );
+// // Что надо написать вместо ххх, чтобы правильно типизировать
+// // параметр функции?
+
+
+

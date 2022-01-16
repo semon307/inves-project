@@ -6,7 +6,7 @@ type MoneyTransferComponentPropsType = {
     rate: string
     buttonLink: string
 }
-export const AdvertisingUnit = ({imgSrc, rate, buttonLink}: MoneyTransferComponentPropsType) => {
+export const AdvertisingUnit = React.memo(({imgSrc, rate, buttonLink}: MoneyTransferComponentPropsType) => {
     return (
         <div className={s.main}>
             <div className={s.logo} style={{backgroundImage: `url(${imgSrc})`}}>
@@ -16,4 +16,4 @@ export const AdvertisingUnit = ({imgSrc, rate, buttonLink}: MoneyTransferCompone
             <div><button className={s.button}><a href={buttonLink} target={"_blank"} rel={"noreferrer"}>Go there!</a></button></div>
         </div>
     )
-}
+})

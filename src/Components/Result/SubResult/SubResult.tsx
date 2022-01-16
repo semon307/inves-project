@@ -6,7 +6,7 @@ type SubResultPropsType = {
     currentPrice: string
     futurePrice: string
 }
-export const SubResult = ({title, currentPrice, futurePrice}: SubResultPropsType) => {
+export const SubResult = React.memo(({title, currentPrice, futurePrice}: SubResultPropsType) => {
     return (
         <div className={s.divTableRow}>
             <div className={s.divTableCol1}>{title}</div>
@@ -14,4 +14,4 @@ export const SubResult = ({title, currentPrice, futurePrice}: SubResultPropsType
             <div className={s.divTableCol1}>{futurePrice}</div>
         </div>
     )
-}
+})

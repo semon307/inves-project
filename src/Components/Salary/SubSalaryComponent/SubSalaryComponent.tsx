@@ -14,7 +14,7 @@ type SubSalaryComponentPropsType = {
     percentForCredit: string
     percentForShares: string
 }
-export const SubSalaryComponent = ({
+export const SubSalaryComponent = React.memo(({
                                        onChangeTitleCurrentSalary,
                                        onChangeTitlePercentCash,
                                        onChangeTitlePercentCredit,
@@ -51,4 +51,4 @@ export const SubSalaryComponent = ({
             </div>
         </>
     )
-}
+})

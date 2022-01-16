@@ -1,5 +1,6 @@
 import s from "./Loader.module.css"
-export const Loader = () => {
+import React from "react";
+export const Loader = React.memo(() => {
     return (
         <div className={s.loadingLine}>
             <div className={s.line}>
@@ -7,4 +8,4 @@ export const Loader = () => {
             </div>
         </div>
     )
-}
+})

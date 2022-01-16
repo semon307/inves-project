@@ -7,7 +7,7 @@ type SubRealEstateComponentPropsType = {
     currentPrice: string
     priceChangeLastYears: string
 }
-export const SubRealEstateComponent = ({
+export const SubRealEstateComponent = React.memo(({
                                            onChangeTitleCurrentPrice,
                                            onChangeTitlePriceChange,
                                            currentPrice,
@@ -25,4 +25,4 @@ export const SubRealEstateComponent = ({
             </div>
         </>
     )
-}
+})

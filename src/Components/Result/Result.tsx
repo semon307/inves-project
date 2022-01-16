@@ -9,16 +9,16 @@ import {currentPriceWholePortfolio, predictFutureSharesPrices} from "../../Funct
 import {CreditStateType} from "../../BLL/CreditReducer";
 import {
     cashPastToTimeStamps,
-    creditPayment,
+    creditPayment, dataFromState, predictFuture,
     salaryToShares
 } from "../../Functions/Functions";
 import {TimeStateType} from "../../BLL/TimeReducer";
 import {SalaryStateType} from "../../BLL/SalaryReducer";
 import {ResultBar} from "./ResultDiagram/ResultBar";
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import Button from "../../Common/Button/Button";
 
-export const Result = () => {
+export const Result = React.memo(() => {
     const years = useSelector<AppStateType, string>(state => state.time.years)
 
     const cashState = useSelector<AppStateType, CashStateType>(state => state.cash)
@@ -40,27 +40,27 @@ export const Result = () => {
     const {futurePrice, currentPrice} = realEstateState
 
     const sharesState = useSelector<AppStateType, SharesStateType>(state => state.shares)
-    const sharesCurrentPrice = Math.floor(currentPriceWholePortfolio(sharesState))
-    const futurePortfolioPrice = sharesState.reduce((acc, el) => acc + +el.amount * predictFutureSharesPrices(el.pricesBefore), 0)
+    const sharesCurrentPrice = useMemo(() => Math.floor(currentPriceWholePortfolio(sharesState)), [sharesState])
+    //const futurePortfolioPrice = sharesState.reduce((acc, el) => acc + +el.amount * predictFutureSharesPrices(el.pricesBefore), 0)
+    const preFuturePortfolioPrice = dataFromState(sharesState, timeState.timeStamps.length)
+    const futurePortfolioPrice = predictFuture(preFuturePortfolioPrice)[predictFuture(preFuturePortfolioPrice).length - 1]
     const creditState = useSelector<AppStateType, CreditStateType>(state => state.credit)
-    const creditInFuture = creditPayment(+creditState.sum, +creditState.percent / (100 * +creditState.percent), +creditState.years * 12) * 12 * +years
+    const creditInFuture = useMemo(() => creditPayment(+creditState.sum, +creditState.percent / (100 * +creditState.percent), +creditState.years * 12) * 12 * +years,
+        [creditState.sum, creditState.percent, creditState.years])
     const creditSumToShow = creditInFuture < +creditState.creditPayBack ? +creditState.creditPayBack - creditInFuture : null
     //
     let cashFutureToShow = +amount;
     if (salaryInTimeStampsForCash) {
         cashFutureToShow = Math.floor(cashFutureToShow + salaryInTimeStampsForCash[salaryInTimeStampsForCash.length - 1])
     }
-    let sharesFutureToShow = +futurePortfolioPrice
-    if (salaryInTimeStampsForShares) {
-        sharesFutureToShow = Math.floor(sharesFutureToShow + salaryInTimeStampsForShares[salaryInTimeStampsForShares.length - 1])
-    }
-    //
-    const totalCurrent = (+principalInvestment || 0) + (+currentPrice || 0) + (+sharesCurrentPrice || 0) - (+creditState.creditPayBack || 0)
-    const totalFuture = cashFutureToShow + +futurePrice + sharesFutureToShow - Number(creditSumToShow)
+    let sharesFutureToShow = Math.floor(+futurePortfolioPrice)
+    const totalCurrent = useMemo(() => (+principalInvestment || 0) + (+currentPrice || 0) + (+sharesCurrentPrice || 0) - (+creditState.creditPayBack || 0),
+        [principalInvestment, currentPrice, sharesCurrentPrice, creditState.creditPayBack])
+    const totalFuture = useMemo(() => cashFutureToShow + +futurePrice + sharesFutureToShow - Number(creditSumToShow), [cashFutureToShow, futurePrice, sharesFutureToShow, creditSumToShow])
 
     const currentYear = new Date().getFullYear()
 
-    const futureYear = +currentYear + +timeState.years
+    const futureYear = useMemo(() => +currentYear + +timeState.years, [currentYear, timeState.years])
 
     const [isResultShown, setIsResultShown] = useState(false)
     const onSetIsResultShown = () => {
@@ -111,4 +111,4 @@ export const Result = () => {
             </div>}
         </div>
     )
-}
+})

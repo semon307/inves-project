@@ -10,14 +10,14 @@ type SubCreditComponentPropsType = {
     sum: string
     percent: string
 }
-export const SubCreditComponent = ({
-                                       onChangeTitleCreditSum,
-                                       onChangeTitlePercent,
-                                       onChangeTitleYears,
-                                       years,
-                                       sum,
-                                       percent
-                                   }: SubCreditComponentPropsType) => {
+export const SubCreditComponent = React.memo(({
+                                                  onChangeTitleCreditSum,
+                                                  onChangeTitlePercent,
+                                                  onChangeTitleYears,
+                                                  years,
+                                                  sum,
+                                                  percent
+                                              }: SubCreditComponentPropsType) => {
     return (
         <>
             <div className={s.divTableRow}>
@@ -34,4 +34,4 @@ export const SubCreditComponent = ({
             </div>
         </>
     )
-}
+})
